@@ -1,0 +1,26 @@
+%head
+  %title StoryPlaces
+  %meta{ name:"viewport", content:"width=device-width, initial-scale=1.0" }
+  %link{ href:"css/bootstrap.min.css", rel:"stylesheet", media:"screen" }
+  %script{ src: "js/modernizr.custom.46377.js" }
+  :javascript
+    function personIsWithinRange(position) {
+      return true;
+    }
+
+    Modernizr.load([
+      {
+        load: "http://code.jquery.com/jquery.js"
+      },
+      {
+        load: "js/bootstrap.min.js"
+      },
+      {
+        test: Modernizr.geolocation,
+        yep : 'js/geo.js',
+        nope: 'js/nogeo.js'
+      }
+    ]);
+%body
+  %h1 Hello, world!
+  %ul#stories
