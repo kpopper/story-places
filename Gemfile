@@ -8,4 +8,6 @@ gem 'geokit'
 
 group :development, :test do
   gem 'jasmine'
+  gem 'rspec'
+  gem 'capybara'
 end

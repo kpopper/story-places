@@ -31,6 +31,11 @@ get '/' do
   haml :index
 end
 
+get '/stories.json' do
+  content_type :json
+  Story.stories.to_json
+end
+
 get '/stories/:lat_lng' do
   content_type :json
 
