@@ -1,4 +1,4 @@
-var map = L.mapbox.map('map', 'examples.map-y7l23tes', {maxZoom: 16});
+var map = L.mapbox.map('map', 'examples.map-uci7ul8p', {maxZoom: 16});
 $.getJSON('/stories.json', function(data) {
   markers = [];
   $.each(data, function(i, story){
@@ -13,9 +13,20 @@ $.getJSON('/stories.json', function(data) {
 });
 
 
-navigator.geolocation.getCurrentPosition( function( position ) {
+navigator.geolocation.watchPosition( function( position ) {
   console.log( 'position: ' + position.coords.latitude + ', ' + position.coords.longitude + ', ' + position.coords.accuracy );
+
+  // Show user's position on the map
+  var coords = [position.coords.latitude, position.coords.longitude];
+  map.setView(coords, 16);
+  L.marker(coords, {icon: L.icon({iconUrl: "/img/user.png"})}).addTo(map);
+  // L.circle(coords, data[i].radius).addTo(map);
+
+
   $.getJSON('/stories/' + position.coords.latitude + ',' + position.coords.longitude, function(data){
+    if( data.lenth == 0 ) {
+      $( "#stories" ).empty();
+    }
     for(var i = 0; i < data.length; i++) {
       console.log(data[i]);
       $( "#stories" ).append( '<li id="welcome">' + data[i].title + ': ' + data[i].audio_html + '</li>' );
@@ -32,5 +43,6 @@ navigator.geolocation.getCurrentPosition( function( position ) {
     // user said no!
   }
 }, {
-  enableHighAccuracy: true
+  enableHighAccuracy: true,
+  timeout:60000
 });
