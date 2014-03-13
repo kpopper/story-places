@@ -1,5 +1,5 @@
+require 'compass'
 require 'sinatra/base'
-require 'sinatra/assetpack'
 require 'json'
 require 'geokit'
 require 'haml'
@@ -29,21 +29,14 @@ class Story
 end
 
 class App < Sinatra::Base
-  set :root, File.dirname(__FILE__) # Required for AssetPack apparently
-  register Sinatra::AssetPack
+  # set sinatra's variables
+  set :app_file, __FILE__
+  set :root, File.dirname(__FILE__)
 
-  assets do
-    js :application, [
-      '/js/modernizr.custom.46377.js'
-      # You can also do this: 'js/*.js'
-    ]
-
-    css :application, [
-      '/css/application.scss'
-     ]
-
-    js_compression :jsmin
-    css_compression :sass
+  configure do
+    set :haml, {format: :html5}
+    set :scss, {style: :compact, debug_info: :false}
+    Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
   end
 
   get '/' do
