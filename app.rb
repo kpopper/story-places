@@ -36,7 +36,7 @@ class App < Sinatra::Base
   configure do
     set :haml, {format: :html5}
     set :scss, {style: :compact, debug_info: :false}
-    Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.rb'))
+    Compass.add_project_configuration(File.join(settings.root, 'config', 'compass.rb'))
   end
 
   get '/' do

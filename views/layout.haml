@@ -7,28 +7,11 @@
     %link{ href:"//api.tiles.mapbox.com/mapbox.js/v1.2.0/mapbox.ie.css", rel:"stylesheet"}
   %link{ href:"/css/application.css", rel:"stylesheet" }
   %script{ src:"/js/modernizr.custom.46377.js" }
-
-  :javascript
-    Modernizr.load([
-      {
-        load: "http://code.jquery.com/jquery.js"
-      },
-      {
-        load: '//api.tiles.mapbox.com/mapbox.js/v1.2.0/mapbox.js',
-        complete: function() {
-        }
-      },
-      {
-        test: Modernizr.geolocation,
-        yep : 'js/geo.js',
-        nope: 'js/nogeo.js'
-      }
-    ]);
-  :css
-    #map {
-      width:600px;
-      height:400px;
-    }
+  %script{ src:"/js/application.js" }
 
 %body
-  =yield
+  %h1.banner
+    Story_Places
+
+  #container
+    =yield
