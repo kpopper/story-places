@@ -17,6 +17,7 @@ class Story
 
   def self.stories
     [{
+      id: 1,
       title: "Welcome to Story Places",
       audio_html: "<audio id=\"player\" src=\"/audio/welcome.ogg\" preload=\"auto\"></audio>",
       centre: {
@@ -41,6 +42,10 @@ class App < Sinatra::Base
 
   get '/' do
     haml :index
+  end
+
+  get '/about' do
+    haml :about
   end
 
   get '/stories.json' do

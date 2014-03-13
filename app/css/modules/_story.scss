@@ -1,0 +1,29 @@
+.story {
+
+  .author {
+    .author-name {
+      color: $font-secondary;
+      font-size: 1.4rem;
+    }
+    color: $font-secondary;
+    font-size: 1rem;
+    margin: 0 1rem;
+  }
+
+  .name {
+    color: $font-primary;
+    margin: 1rem;
+  }
+
+  .play {
+    color: $font-secondary;
+    font-size: 3rem;
+    float: right;
+    margin: 0 1rem;
+  }
+
+  .published {
+    color: #666;
+    margin: 0.2rem 1rem;
+  }
+}
