@@ -1,4 +1,5 @@
-require 'sinatra'
+require 'sinatra/base'
+require 'sinatra/assetpack'
 require 'json'
 require 'geokit'
 require 'haml'
@@ -27,21 +28,40 @@ class Story
   end
 end
 
-get '/' do
-  haml :index
-end
+class App < Sinatra::Base
+  set :root, File.dirname(__FILE__) # Required for AssetPack apparently
+  register Sinatra::AssetPack
 
-get '/stories.json' do
-  content_type :json
-  Story.stories.to_json
-end
+  assets do
+    js :application, [
+      '/js/modernizr.custom.46377.js'
+      # You can also do this: 'js/*.js'
+    ]
 
-get '/stories/:lat_lng' do
-  content_type :json
+    css :application, [
+      '/css/application.scss'
+     ]
 
-  lat_lng = params[:lat_lng].split(',')
-  lat = lat_lng.first
-  lng = lat_lng.last
-  stories_near = Story.stories_near(lat, lng)
-  stories_near.to_json
+    js_compression :jsmin
+    css_compression :sass
+  end
+
+  get '/' do
+    haml :index
+  end
+
+  get '/stories.json' do
+    content_type :json
+    Story.stories.to_json
+  end
+
+  get '/stories/:lat_lng' do
+    content_type :json
+
+    lat_lng = params[:lat_lng].split(',')
+    lat = lat_lng.first
+    lng = lat_lng.last
+    stories_near = Story.stories_near(lat, lng)
+    stories_near.to_json
+  end
 end
