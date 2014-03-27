@@ -3,4 +3,18 @@
     Look at the map below to find your nearest story place. When you get close enough, you'll be able to listen.
 
 %div#stories
+
 #map
+
+
+%script{ id:"story-template", type:"text/html" }
+  :preserve
+    <div class="story" data-story-id="{{id}}">
+      <h2 class="name">{{title}}</h2>
+      <div class="controls">
+        {{{audio_html}}}
+        <a href="#"><i class="fa fa-play-circle play" /></a>
+      </div>
+      <h3 class="author">by <span class="author-name">William Sutcliffe</span></h3>
+      <p class="published">on <span class="published-date">23rd Feb 2014</span></p>
+    </div>

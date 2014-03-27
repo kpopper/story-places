@@ -1,11 +1,17 @@
 Modernizr.load([
   {
-    load: "http://code.jquery.com/jquery.js"
+    load: "//code.jquery.com/jquery.js"
   },
   {
-    load: '//api.tiles.mapbox.com/mapbox.js/v1.2.0/mapbox.js',
+    load: '//api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js',
     complete: function() {
     }
+  },
+  {
+    load: 'js/leaflet-pip.js'
+  },
+  {
+    load: 'js/jquery.mustache.js'
   },
   {
     test: Modernizr.geolocation,

@@ -1,17 +1,23 @@
-var map = L.mapbox.map('map', 'examples.map-uci7ul8p', {maxZoom: 16});
 $( "#stories" ).hide();
-$.getJSON('/stories.json', function(data) {
-  markers = [];
-  $.each(data, function(i, story){
-    console.log(story);
-    var marker = L.marker([story.centre.latitude, story.centre.longitude]).addTo(map);
-    L.circle([story.centre.latitude, story.centre.longitude], story.radius).addTo(map);
-    markers.push(marker);
-  });
+
+var map = L.mapbox.map('map', 'kpopper.hkk51f45', {maxZoom: 15});
+if (navigator.geolocation) {
+  map.locate();
+}
+
+// Show stories directly from within Mapbox
+// $.getJSON('/stories.json', function(data) {
+//   markers = [];
+//   $.each(data, function(i, story){
+//     console.log(story);
+//     var marker = L.marker([story.centre.latitude, story.centre.longitude]).addTo(map);
+//     L.circle([story.centre.latitude, story.centre.longitude], story.radius).addTo(map);
+//     markers.push(marker);
+//   });
   
-  var group = new L.featureGroup(markers);
-  map.fitBounds(group.getBounds());
-});
+//   var group = new L.featureGroup(markers);
+//   map.fitBounds(group.getBounds());
+// });
 
 var story_template = '' + 
 '<div class="story" data-story-id="{{id}}">' +
@@ -23,17 +29,17 @@ var story_template = '' +
 '  <p class="published">on <span class="published-date">23rd Feb 2014</span></p>' +
 '</div>';
 
-navigator.geolocation.watchPosition( function( position ) {
-  console.log( 'position: ' + position.coords.latitude + ', ' + position.coords.longitude + ', ' + position.coords.accuracy );
+map.on('locationfound', function(e) {
+  console.log( 'position: ' + e.latlng.lat + ', ' + e.latlng.lng );
 
-  // Show user's position on the map
-  var coords = [position.coords.latitude, position.coords.longitude];
-  map.setView(coords, 16);
-  L.marker(coords, {icon: L.icon({iconUrl: "/img/user.png"})}).addTo(map);
-  // L.circle(coords, data[i].radius).addTo(map);
+  $.getJSON('http://api.tiles.mapbox.com/v3/kpopper.hkk51f45/markers.geojson', function(data) {
+    console.log('polygons retrieved: ' + JSON.stringify(data));
+    var geojson = L.geoJson(data);
+    var polygons = leafletPip.pointInLayer([e.latlng.lng, e.latlng.lat], geojson);
+    console.log(polygons);
+  });
 
-
-  $.getJSON('/stories/' + position.coords.latitude + ',' + position.coords.longitude, function(data){
+  $.getJSON('/stories/' + e.latlng.lat + ',' + e.latlng.lng, function(data){
     if( data.lenth == 0 ) {
       $( "#no-stories" ).show();
       $( "#stories" ).empty().hide();
@@ -43,10 +49,20 @@ navigator.geolocation.watchPosition( function( position ) {
       console.log(data[i]);
       $( "#no-stories" ).hide();
       if( $( "#stories .story[data-story-id=" + data[i].id + "]").length == 0 ) {
-        $( "#stories" ).append( story_template.replace('{{name}}', data[i].title).replace('{{id}}', data[i].id) );
-        $( ".story .controls").prepend( data[i].audio_html );
-        $( ".story .controls a").click(function(){ document.getElementById( 'player' ).play(); });
-        $( "#stories" ).show();
+        var template = $('#story-template').html();
+        var output = Mustache.render(template, data[i]);
+        $( "#stories" ).append(output).show();
+        $( ".story[data-story-id=" + data[i].id + "] .controls a").click(function(){
+          var player = document.getElementById('player');
+          if (!player.paused) {
+            player.pause();
+          } else {
+            player.play();
+          }
+        });
+        // $( "#stories" ).append( story_template.replace('{{name}}', data[i].title).replace('{{id}}', data[i].id) );
+        // $( ".story .controls").prepend( data[i].audio_html );
+        // $( "#stories" ).show();
       }
       // var coords = [data[i].centre.latitude, data[i].centre.longitude];
       // map.setView(coords, 16);
@@ -54,12 +70,17 @@ navigator.geolocation.watchPosition( function( position ) {
       // L.circle(coords, data[i].radius).addTo(map);
     }
   });
-}, function( err ) {
-  if ( err.code == 1 )
-  {
-    // user said no!
-  }
-}, {
-  enableHighAccuracy: true,
-  timeout:60000
+
+  map.featureLayer.setGeoJSON({
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: [e.latlng.lng, e.latlng.lat]
+    },
+    properties: {
+      'marker-color': '#000',
+      'marker-symbol': 'star-stroked'
+    }
+  });
+
 });
