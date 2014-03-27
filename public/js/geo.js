@@ -71,7 +71,8 @@ map.on('locationfound', function(e) {
     }
   });
 
-  map.featureLayer.setGeoJSON({
+  var featureLayer = map.featureLayer.getGeoJSON();
+  featureLayer.features.push({
     type: "Feature",
     geometry: {
       type: "Point",
@@ -82,5 +83,5 @@ map.on('locationfound', function(e) {
       'marker-symbol': 'star-stroked'
     }
   });
-
+  map.featureLayer.setGeoJSON(featureLayer);
 });
