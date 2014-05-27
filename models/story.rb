@@ -1,6 +1,16 @@
+require 'dm-pg-types'
 require File.expand_path(File.join('lib', 'pinp.rb'))
 
 class Story
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :story_id, String
+  property :author, String
+  property :date, DateTime
+  property :audio_url, String
+  property :coordinates, HStore
+
   def self.stories_near(lat, lng)
     found = []
     self.stories.each do |story|

@@ -7,12 +7,19 @@ require 'data_mapper'
 require 'dotenv'
 Dotenv.load
 
-require './models/story.rb'
 
 class App < Sinatra::Base
   # set sinatra's variables
   set :app_file, __FILE__
   set :root, File.dirname(__FILE__)
+
+  DataMapper::Logger.new($stdout, :debug)
+  DataMapper.setup(:default, 'postgres://localhost/story_places_development')
+  DataMapper.repository(:default).adapter.execute("CREATE EXTENSION IF NOT EXISTS HSTORE")
+
+  require './models/story.rb'
+
+  DataMapper.finalize.auto_upgrade!
 
   configure do
     set :haml, {format: :html5}
