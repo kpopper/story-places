@@ -29,12 +29,11 @@ class App < Sinatra::Base
     Story.stories.to_json
   end
 
-  get '/stories/:lat_lng' do
+  get '/stories/:lat,:lng' do
     content_type :json
 
-    lat_lng = params[:lat_lng].split(',')
-    lat = lat_lng.first
-    lng = lat_lng.last
+    lat = params[:lat].to_f
+    lng = params[:lng].to_f
     stories_near = Story.stories_near(lat, lng)
     stories_near.to_json
   end
