@@ -27,7 +27,7 @@ map.on('locationfound', function(e) {
   // This means that the logic to determine if someone can listen to a story happens on the server.
 
   // Fetch the polygons and markers for the stories
-  $.getJSON('http://api.tiles.mapbox.com/v3/kpopper.hkk51f45/markers.geojson', function(data) {
+  $.getJSON('http://api.tiles.mapbox.com/v3/' + mapId + '/markers.geojson', function(data) {
     console.log('polygons retrieved: ' + JSON.stringify(data));
 
     // polygons will contain an array of polygons the current user is inside

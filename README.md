@@ -1,4 +1,4 @@
 story-places
 ============
 
-    bundle exec thin start
+	bundle exec shotgun

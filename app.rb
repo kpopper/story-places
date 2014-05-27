@@ -2,6 +2,10 @@ require 'compass'
 require 'sinatra/base'
 require 'json'
 require 'haml'
+require 'data_mapper'
+
+require 'dotenv'
+Dotenv.load
 
 require './models/story.rb'
 
