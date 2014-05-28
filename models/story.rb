@@ -6,6 +6,7 @@ class Story
 
   property :id, Serial
   property :story_id, String
+  property :title, String
   property :author, String
   property :date, DateTime
   property :audio_url, String

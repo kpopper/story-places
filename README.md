@@ -20,6 +20,13 @@ We use Mapbox for the maps. The id of the map used is stored in an environment v
 
 The Mapbox is treated as the source of map information. A scheduled task (should) run(s) to pull down a list of all story places and parse them as stories in the app. This may prove to be a bad idea but initially at least seems better than duplicating the information.
 
+The information in a Story maps to a Polygon in Mapbox as below:
+
+```
+story_id: title (downcased, spaces replaced with underscores)
+title: description
+```
+
 Audio
 -----
 
