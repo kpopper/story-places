@@ -111,7 +111,7 @@ namespace :db do
 
     case config[:adapter]
     when 'postgres'
-      system("createdb", "-E", charset, "-h", host, "-U", user, database)
+      system("createdb", "-E", charset, "-h", host, database)
     when 'mysql'
       query = [
         "mysql", "--user=#{user}", (password.blank? ? '' : "--password=#{password}"), (%w[127.0.0.1 localhost].include?(host) ? '-e' : "--host=#{host} -e"),
@@ -131,11 +131,11 @@ namespace :db do
     repo = args[:repository] || ENV['REPOSITORY'] || :default
     config = DataMapper.repository(repo).adapter.options.symbolize_keys
     user, password, host = config[:user], config[:password], config[:host]
-    database       = config[:database] || config[:path].sub(/\//, "")
+    database = config[:database] || config[:path].sub(/\//, "")
     puts "=> Dropping database '#{database}'"
     case config[:adapter]
       when 'postgres'
-        system("dropdb", "-h", host, "-U", user, database)
+        system("dropdb", "-h", host, database)
       when 'mysql'
         query = [
           "mysql", "--user=#{user}", (password.blank? ? '' : "--password=#{password}"), (%w[127.0.0.1 localhost].include?(host) ? '-e' : "--host=#{host} -e"),
