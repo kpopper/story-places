@@ -8,6 +8,7 @@ gem 'shotgun'
 gem 'json'
 gem 'dm-postgres-adapter'
 gem 'data_mapper'
+gem 'rabl'
 
 gem 'sass', '3.2.13'
 gem 'bourbon'

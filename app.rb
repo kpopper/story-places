@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'json'
 require 'haml'
 require 'data_mapper'
+require 'rabl'
 
 require 'dotenv'
 Dotenv.load
@@ -12,6 +13,8 @@ class App < Sinatra::Base
   # set sinatra's variables
   set :app_file, __FILE__
   set :root, File.dirname(__FILE__)
+
+  Rabl.register!
 
   require_relative 'lib/init_database'
 
@@ -30,16 +33,12 @@ class App < Sinatra::Base
   end
 
   get '/stories.json' do
-    content_type :json
-    Story.stories.to_json
+    @stories = Story.all
+    rabl :stories, format: :json
   end
 
   get '/stories/:lat,:lng' do
-    content_type :json
-
-    lat = params[:lat].to_f
-    lng = params[:lng].to_f
-    stories_near = Story.stories_near(lat, lng)
-    stories_near.to_json
+    @stories = Story.stories_near(params[:lat].to_f, params[:lng].to_f)
+    rabl :stories, format: :json
   end
 end

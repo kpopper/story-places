@@ -1,5 +1,6 @@
 $( "#stories" ).hide();
 
+// Show the map and locate the user on it
 var map = L.mapbox.map('map', 'kpopper.hkk51f45', {maxZoom: 15});
 if (navigator.geolocation) {
   map.locate();
@@ -19,8 +20,11 @@ if (navigator.geolocation) {
 //   map.fitBounds(group.getBounds());
 // });
 
+// Check for geolocational ability
 map.on('locationfound', function(e) {
-  console.log( 'position: ' + e.latlng.lat + ', ' + e.latlng.lng );
+
+  // We have the user's location
+  console.log( 'User\'s current location: ' + e.latlng.lat + ', ' + e.latlng.lng );
 
   // Best solution is probably to GET /stories/lat,lng here passing in user's location
   // that should then return the markup for the found story.
@@ -44,14 +48,16 @@ map.on('locationfound', function(e) {
       $( "#stories" ).empty().hide();
     }
     for(var i = 0; i < data.length; i++) {
+      var story = data[i].story
+
       // TODO: Don't keep adding duplicate stories. There should only ever be 1.
-      console.log(data[i]);
+      console.log(story);
       $( "#no-stories" ).hide();
-      if( $( "#stories .story[data-story-id=" + data[i].id + "]").length == 0 ) {
+      if( $( "#stories .story[data-story-id=" + story.id + "]").length == 0 ) {
         var template = $('#story-template').html();
-        var output = Mustache.render(template, data[i]);
+        var output = Mustache.render(template, story);
         $( "#stories" ).append(output).show();
-        $( ".story[data-story-id=" + data[i].id + "] .controls a").click(function(){
+        $( ".story[data-story-id=" + story.id + "] .controls a").click(function(){
           var player = document.getElementById('player');
           if (!player.paused) {
             player.pause();
