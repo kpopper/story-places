@@ -8,9 +8,12 @@
     %link{ href:"//api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.ie.css", rel:"stylesheet"}
   %link{ href:"/css/application.css", rel:"stylesheet" }
   %script{ src:"/js/modernizr.custom.46377.js" }
-  :javascript
-    var mapId = '#{ENV['MAPBOX_MAP_ID']}';
   %script{ src:"/js/application.js" }
+  :javascript
+    window.data = {
+      mapId: '#{ENV['MAPBOX_MAP_ID']}',
+      currentStory: null
+    };
 
 %body
   %h1.banner

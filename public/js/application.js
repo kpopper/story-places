@@ -14,6 +14,18 @@ Modernizr.load([
     load: 'js/jquery.mustache.js'
   },
   {
+    load: 'js/underscore-min.js'
+  },
+  {
+    load: 'js/storyplaces.js'
+  },
+  {
+    load: 'js/storyplaces.data.js'
+  },
+  {
+    load: 'js/storyplaces.ui.story.js'
+  },
+  {
     test: Modernizr.geolocation,
     yep : 'js/geo.js',
     nope: 'js/nogeo.js'
