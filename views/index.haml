@@ -14,7 +14,7 @@
     <div class="story" data-story-id="{{id}}">
       <h2 class="name">{{title}}</h2>
       <div class="controls">
-        {{{audio_html}}}
+        <audio id="player" src="{{audio_url}}" preload="auto"></audio>
         <a href="#"><i class="fa fa-play-circle play" /></a>
       </div>
       <h3 class="author">by <span class="author-name">{{author}}</span></h3>
