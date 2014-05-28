@@ -1,4 +1,4 @@
-(function($, undefined) {
+(function(window, $, undefined) {
 
 	function getStoriesForLatLng(lat, lng, callback) {
 		$.ajax( {
@@ -31,4 +31,4 @@
 		getStoryPolygons : getStoryPolygons
 	};
 
-})(jQuery);
+})(window, jQuery);

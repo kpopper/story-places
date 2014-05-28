@@ -14,9 +14,6 @@ Modernizr.load([
     load: 'js/jquery.mustache.js'
   },
   {
-    load: 'js/underscore-min.js'
-  },
-  {
     load: 'js/storyplaces.js'
   },
   {
@@ -27,6 +24,9 @@ Modernizr.load([
     complete: function() {
       $(window.storyplaces.ui.story.init);
     }
+  },
+  {
+    load: 'js/storyplaces.ui.map.js'
   },
   {
     test: Modernizr.geolocation,

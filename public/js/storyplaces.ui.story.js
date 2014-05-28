@@ -1,4 +1,4 @@
-(function(window, $, _, undefined){
+(function(window, $, undefined){
 
   function processData(data) {
     if( data.lenth == 0 ) {
@@ -39,4 +39,4 @@
 		updateStory : updateStory
 	}
 
-})(window, jQuery, _);
+})(window, jQuery);
