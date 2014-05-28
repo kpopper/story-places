@@ -23,7 +23,10 @@ Modernizr.load([
     load: 'js/storyplaces.data.js'
   },
   {
-    load: 'js/storyplaces.ui.story.js'
+    load: 'js/storyplaces.ui.story.js',
+    complete: function() {
+      $(window.storyplaces.ui.story.init);
+    }
   },
   {
     test: Modernizr.geolocation,
