@@ -1,4 +1,3 @@
-require 'dm-pg-types'
 require File.expand_path(File.join('lib', 'pinp.rb'))
 
 class Story
@@ -10,12 +9,14 @@ class Story
   property :author, String
   property :date, DateTime
   property :audio_url, String
-  property :coordinates, HStore
+
+  has n, :coordinates, 'LatLng'
 
   def self.stories_near(lat, lng)
     found = []
-    self.stories.each do |story|
-      points = story[:coordinates].map { |lg, lt| Pinp::Point.new(lt, lg) }
+    Story.all.each do |story|
+      points = story.coordinates.map { |coord| Pinp::Point.new(coord.latitude, coord.longitude) }
+      puts "=> points: #{points}"
       rectangle = Pinp::Polygon.new(points)
       user_point = Pinp::Point.new(lat, lng)
       found << story if rectangle.contains_point? user_point

@@ -15,6 +15,7 @@ module Mapbox
 			markers["features"].each do |story|
 				#puts story["geometry"]
 				story_id = story["properties"]["title"].downcase.gsub(' ', '_')
+
 				if Story.count(story_id: story_id) > 0 then
 					puts "Story #{story_id} already exists"
 				else
@@ -24,9 +25,12 @@ module Mapbox
 					the_story.author = "Ian Kynnersley"
 					the_story.date = Date.today
 					the_story.audio_url = "/audio/welcome.ogg"
-					the_story.coordinates = story["geometry"]["coordinates"]
+					the_story.coordinates = story["geometry"]["coordinates"][0].map do |lng, lat|
+            LatLng.new(latitude: lat, longitude: lng)
+          end
+					puts the_story.coordinates
 					the_story.save
-					puts the_story.inspect
+					# puts the_story.inspect
 				end
 			end
 		end
