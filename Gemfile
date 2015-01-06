@@ -17,7 +17,7 @@ gem 'bitters'
 gem 'compass'
 
 group :development, :test do
-	gem 'dotenv'
+  gem 'dotenv'
   gem 'jasmine'
   gem 'rspec'
   gem 'capybara'
