@@ -1,13 +1,17 @@
 story-places
 ============
 
-`bundle exec shotgun`
+`foreman start -f Procfile.dev`
 
 
 Database
 --------
 
 This app uses Postgres as a database.
+
+Install postgresql locally (foreman will start it so no need to keep it running):
+
+`brew install postgresql`
 
 Create the database locally:
 
