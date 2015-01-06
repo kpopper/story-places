@@ -17,6 +17,10 @@ Create the database locally:
 
 `createdb story_places_development`
 
+Import stories from Mapbox using rake:
+
+`bundle exec rake mapbox:import`
+
 Maps
 ----
 
