@@ -1,12 +1,14 @@
 (function(window, $, undefined){
 
   function processData(data) {
-    if( data.lenth == 0 ) {
+    if( data.length == 0 ) {
+      console.log("No stories returned.")
       $( "#no-stories" ).show();
       $( "#stories" ).empty().hide();
+      return;
     }
 
-    window.data.currentStory = data[0].story
+    window.data.currentStory = data[0].story;
     storyplaces.ui.story.updateStory(window.data.currentStory);
   }
 
