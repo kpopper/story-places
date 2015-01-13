@@ -11,6 +11,7 @@ gem 'dm-postgres-adapter'
 gem 'data_mapper'
 gem 'rabl'
 
+gem 'sinatra-partial'
 gem 'sass', '3.2.13'
 gem 'bourbon'
 gem 'neat'

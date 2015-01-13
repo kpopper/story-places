@@ -1,5 +1,6 @@
 require 'compass'
 require 'sinatra/base'
+require 'sinatra/partial'
 require 'json'
 require 'haml'
 require 'data_mapper'
@@ -10,6 +11,8 @@ Dotenv.load
 
 
 class App < Sinatra::Base
+  register Sinatra::Partial
+
   # set sinatra's variables
   set :app_file, __FILE__
   set :root, File.dirname(__FILE__)
