@@ -1,5 +1,8 @@
 window.data.map = window.storyplaces.ui.map.showMap(window.data.mapId);
 
+// Fetch all stories
+window.storyplaces.data.getAllStories(window.storyplaces.ui.story.addStoriesToMap);
+
 // Check for geolocational ability
 window.data.map.on('locationfound', function(e) {
 
