@@ -1,8 +1,22 @@
 (function(window, $, undefined){
 
+  function addStoriesToMap(data) {
+    if( data.length == 0 ) {
+      console.log("No stories returned.");
+      return;
+    }
+
+    $.each(data, function(index, storyData){
+      console.log(storyData);
+      window.storyplaces.ui.map.addStoryToMap(storyData.story);
+    });
+
+    window.storyplaces.ui.map.showAllStories();
+  }
+
   function processData(data) {
     if( data.length == 0 ) {
-      console.log("No stories returned.")
+      console.log("No stories returned.");
       $( "#no-stories" ).show();
       $( "#stories" ).empty().hide();
       return;
@@ -37,6 +51,7 @@
 
 	window.storyplaces.ui.story = {
 		init : init,
+    addStoriesToMap : addStoriesToMap,
 		processData : processData,
 		updateStory : updateStory
 	}
