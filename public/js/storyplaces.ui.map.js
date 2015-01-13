@@ -24,9 +24,24 @@
     window.data.map.featureLayer.setGeoJSON(featureLayer);
   }
 
+  function addStoryToMap(story) {
+    var polygon = L.polygon([]);
+    console.log(story);
+    $.each(story.coordinates, function(index, coord){
+      polygon.addLatLng(L.latLng(coord.latitude, coord.longitude));
+    });
+    window.data.map.addLayer(polygon);
+  }
+
+  function showAllStories() {
+    window.data.map.fitBounds(window.data.map.featureLayer.getBounds());
+  }
+
 	window.storyplaces.ui.map = {
 		showMap : showMap,
-		showUserOnMap : showUserOnMap
+		showUserOnMap : showUserOnMap,
+    addStoryToMap : addStoryToMap,
+    showAllStories : showAllStories
 	}
 
 })(window);
