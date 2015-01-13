@@ -11,6 +11,17 @@
 		} );
 	}
 
+	function getAllStories(callback) {
+		$.ajax( {
+			url : '/stories',
+			contentType : 'application/json',
+			dataType : 'json',
+			type : 'GET',
+			success : callback,
+			error : onError
+		} );
+	}
+
 	function getStoryPolygons(mapId, callback) {
 		$.ajax( {
 			url : 'http://api.tiles.mapbox.com/v3/' + mapId + '/markers.geojson',
@@ -28,6 +39,7 @@
 
 	window.storyplaces.data = {
 		getStoriesForLatLng : getStoriesForLatLng,
+		getAllStories : getAllStories,
 		getStoryPolygons : getStoryPolygons
 	};
 

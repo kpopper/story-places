@@ -32,7 +32,7 @@ class App < Sinatra::Base
     haml :about
   end
 
-  get '/stories.json' do
+  get '/stories' do
     @stories = Story.all
     rabl :stories, format: :json
   end
