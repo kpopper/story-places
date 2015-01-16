@@ -37,6 +37,11 @@ class App < Sinatra::Base
     haml :about
   end
 
+  get '/story/:id' do
+    @story = Story.get(params[:id])
+    haml :story
+  end
+
   get '/stories' do
     @stories = Story.all
     rabl :stories, format: :json

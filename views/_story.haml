@@ -1,5 +1,7 @@
 .story
-  %h2.title= story.title
+  %h2.title
+    %a{ href: "/story/#{story.id}" }
+      = story.title
   %h3.author
     by
     %span.author-name
