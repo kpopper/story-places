@@ -16,6 +16,7 @@ class App < Sinatra::Base
   # set sinatra's variables
   set :app_file, __FILE__
   set :root, File.dirname(__FILE__)
+  enable :partial_underscores
 
   Rabl.register!
 
@@ -28,6 +29,7 @@ class App < Sinatra::Base
   end
 
   get '/' do
+    @stories = Story.all
     haml :index
   end
 

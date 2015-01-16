@@ -46,7 +46,7 @@
 	}
 
 	function init() {
-    $( "#stories" ).hide();
+    //$( "#stories" ).hide();
 	}
 
 	window.storyplaces.ui.story = {

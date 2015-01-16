@@ -1,3 +1,6 @@
+// Don't show the map right away (temporary obviously)
+return;
+
 window.data.map = window.storyplaces.ui.map.showMap(window.data.mapId);
 
 // Fetch all stories

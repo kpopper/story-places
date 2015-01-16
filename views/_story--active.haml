@@ -1,0 +1,17 @@
+.story
+  %h2.title= story.title
+
+  .controls
+    %audio#player{ src: "#{story.audio_url}", preload: auto }
+    %a{ href: "#" }
+      %i.fa.fa-play-circle.play
+
+  %h3.author
+    by
+    %span.author-name
+      = story.author
+
+  %p.published
+    on
+    %span.published-date
+      = story.date
