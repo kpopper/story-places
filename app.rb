@@ -42,6 +42,12 @@ class App < Sinatra::Base
     haml :story
   end
 
+  get '/story/:id/:lat,:lng' do
+    story = Story.get(params[:id])
+    @story = story if story.can_be_listened_at?(lat, lng)
+    rabl :story, format: :json
+  end
+
   get '/stories' do
     @stories = Story.all
     rabl :stories, format: :json

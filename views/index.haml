@@ -4,7 +4,11 @@
 
 %p Find a story below that interests you, find out where you can go to listen to it and head over.
 
+%p
+  %a.find-me{ href: "#" } To find places near you, click here to allow us to see where you are
+
 #stories
   - @stories.each do |story|
     = partial :story, locals: {story: story}
 
+= partial :"story--active_template"

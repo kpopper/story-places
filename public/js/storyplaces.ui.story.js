@@ -14,6 +14,29 @@
     window.storyplaces.ui.map.showAllStories();
   }
 
+  function updateStoryList(data) {
+    $( "#stories" ).empty('slow');
+    $.each(data, function(index, storyData){
+      console.log(storyData);
+      renderStory(storyData);
+    });
+  }
+
+  function renderStory(story) {
+    var template = $('#story-template').html();
+    var output = Mustache.render(template, story);
+    $( "#stories" ).append(output).show();
+    $( ".story[data-story-id=" + story.id + "] .controls a").click(function(){
+      var player = document.getElementById('player');
+      if (!player.paused) {
+        player.pause();
+      } else {
+        player.play();
+      }
+    });
+
+  }
+
   function processData(data) {
     if( data.length == 0 ) {
       console.log("No stories returned.");
@@ -31,17 +54,7 @@
     console.log(story);
     $( "#no-stories" ).hide();
     if( $( "#stories .story[data-story-id=" + story.id + "]").length == 0 ) {
-      var template = $('#story-template').html();
-      var output = Mustache.render(template, story);
-      $( "#stories" ).append(output).show();
-      $( ".story[data-story-id=" + story.id + "] .controls a").click(function(){
-        var player = document.getElementById('player');
-        if (!player.paused) {
-          player.pause();
-        } else {
-          player.play();
-        }
-      });
+      renderStory(story);
     }
 	}
 
@@ -53,7 +66,8 @@
 		init : init,
     addStoriesToMap : addStoriesToMap,
 		processData : processData,
-		updateStory : updateStory
+		updateStory : updateStory,
+    updateStoryList : updateStoryList
 	}
 
 })(window, jQuery);

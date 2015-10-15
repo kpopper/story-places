@@ -12,16 +12,17 @@ class Story
 
   has n, :coordinates, 'LatLng'
 
+  def can_be_listened_at?(lat, lng)
+    user_location = Pinp::Point.new(lng, lat)
+    return boundary.contains_point? user_location
+  end
+
   def self.stories_near(lat, lng)
-    found = []
-    Story.all.each do |story|
-      points = story.coordinates.map { |coord| Pinp::Point.new(coord.latitude, coord.longitude) }
-      puts "=> points: #{points}"
-      rectangle = Pinp::Polygon.new(points)
-      user_point = Pinp::Point.new(lat, lng)
-      found << story if rectangle.contains_point? user_point
+    return Story.all.select do |story|
+      puts story.inspect
+      puts story.can_be_listened_at?(lat, lng)
+      story.can_be_listened_at?(lat, lng)
     end
-    return found
   end
 
   def self.stories
@@ -60,4 +61,13 @@ class Story
       }
     ]
   end
+
+  private
+
+  def boundary
+    points = coordinates.map { |coord| Pinp::Point.new(coord.latitude, coord.longitude) }
+    return Pinp::Polygon.new points
+  end
+
+
 end
